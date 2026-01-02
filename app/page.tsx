@@ -1,7 +1,18 @@
+// Saturn Multipurpose — One-page Landing Page (Next.js App Router compatible)
+//
+// ✅ Logo setup
+// - Put your logo file here: /public/saturn-logo.jpg
+// - If your logo has a different name, either rename it or change LOGO_SRC below.
+//
+// Notes:
+// - Uses plain <img> instead of next/image to avoid next/image import/runtime issues.
+// - Navbar + topbar are fully transparent (no white background) over the hero.
+// - Hero container has NO border, NO background, NO shadow (as requested).
 
 'use client';
 import React from "react";
-import Image from "next/image";
+
+const LOGO_SRC = "/saturn-logo.jpg";
 
 const nav = [
   { label: "Home", href: "#home" },
@@ -89,7 +100,7 @@ const faqs = [
 
 function Badge({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white/70 px-3 py-1 text-xs font-medium text-neutral-700 shadow-sm backdrop-blur">
+    <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/85 shadow-sm backdrop-blur">
       {children}
     </span>
   );
@@ -99,7 +110,15 @@ function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>;
 }
 
-function SectionTitle({ eyebrow, title, desc }: { eyebrow: string; title: string; desc?: string }) {
+function SectionTitle({
+  eyebrow,
+  title,
+  desc,
+}: {
+  eyebrow: string;
+  title: string;
+  desc?: string;
+}) {
   return (
     <div className="max-w-2xl">
       <div className="text-xs font-semibold tracking-widest text-neutral-600">{eyebrow}</div>
@@ -119,184 +138,157 @@ function Card({ title, desc }: { title: string; desc: string }) {
 }
 
 function IconDot() {
+  return <span className="mt-2 inline-flex h-2 w-2 flex-none rounded-full bg-neutral-900" aria-hidden />;
+}
+
+function Logo({ className }: { className: string }) {
+  // Dev-time checks (“tests”) to catch common setup mistakes early
+  if (process.env.NODE_ENV !== "production") {
+    console.assert(LOGO_SRC.startsWith("/"), "LOGO_SRC should be a public path like /saturn-logo.jpg");
+    console.assert(nav.length > 0, "nav should be a non-empty array");
+  }
+
   return (
-    <span className="mt-2 inline-flex h-2 w-2 flex-none rounded-full bg-neutral-900" aria-hidden />
+    <div className="flex items-center gap-2">
+      <img
+        src={LOGO_SRC}
+        alt="Saturn Multipurpose Logo"
+        className={className}
+        loading="eager"
+        decoding="async"
+        onError={(e) => {
+          // Hide broken image icon, show fallback text
+          (e.currentTarget as HTMLImageElement).style.display = "none";
+          const next = e.currentTarget.nextElementSibling as HTMLElement | null;
+          if (next) next.style.display = "flex";
+        }}
+      />
+      {/* Fallback text logo (shows only if image fails) */}
+      <span className="hidden items-center font-semibold tracking-tight text-white" aria-hidden>
+        Saturn<span className="opacity-70">Multipurpose</span>
+      </span>
+    </div>
   );
 }
 
 export default function Page() {
+  const [showHeroBg, setShowHeroBg] = React.useState(true);
+
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
-      {/* Top Bar */}
-      <div className="border-b border-neutral-200 bg-white">
-        <Container>
-          <div className="flex flex-col gap-2 py-3 text-xs text-neutral-600 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2">
-                <span className="font-semibold text-neutral-900">Saturn Multipurpose</span>
-                <span className="text-neutral-400">•</span>
-                <span>Import & Export Company • Nepal</span>
-              </span>
-            </div>
-            <div className="flex flex-wrap items-center gap-4">
-              <a className="hover:text-neutral-900" href="mailto:info@saturnmultipurpose.com">
-                info@saturnmultipurpose.com
-              </a>
-              <a className="hover:text-neutral-900" href="tel:+9779800000000">
-                +977 98XXXXXXXX
-              </a>
-            </div>
-          </div>
-        </Container>
-      </div>
-
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/80 backdrop-blur">
-        <Container>
-          <div className="flex items-center justify-between py-4">
-          <a href="#home" className="flex items-center gap-3">
-  <Image
-    src="/saturn-logo.jpg"
-    alt="Saturn Multipurpose Logo"
-    width={200}
-    height={60}
-    priority
-    className="h-10 w-auto object-contain"
-  />
-</a>
-
-
-            <nav className="hidden items-center gap-6 md:flex">
-              {nav.map((i) => (
-                <a
-                  key={i.href}
-                  href={i.href}
-                  className="text-sm text-neutral-600 hover:text-neutral-900"
-                >
-                  {i.label}
-                </a>
-              ))}
-            </nav>
-
-            <div className="flex items-center gap-3">
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center rounded-xl border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-95"
-              >
-                Get a Quote
-              </a>
-            </div>
-          </div>
-        </Container>
-      </header>
-
-      {/* Hero */}
-      <main id="home" className="relative">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(0,0,0,0.06),transparent_55%)]" />
-        <Container>
-          <div className="grid gap-10 py-14 sm:py-16 lg:grid-cols-2 lg:items-center lg:gap-14">
-            <div>
-              <div className="flex flex-wrap gap-2">
-                <Badge>Trusted Trade Partner</Badge>
-                <Badge>Nepal-based</Badge>
-                <Badge>Import • Export • Sourcing</Badge>
+      {/* Dark header/hero zone so transparency looks correct */}
+      <div className="bg-[#061B2B]">
+        {/* Top Bar (fully transparent) */}
+        <div className="relative z-50 bg-transparent">
+          <Container>
+            <div className="flex flex-col gap-2 py-3 text-xs text-white/75 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-2">
+                  <span className="font-semibold text-white">Saturn Multipurpose</span>
+                  <span className="text-white/40">•</span>
+                  <span>Import & Export Company • Nepal</span>
+                </span>
               </div>
+              <div className="flex flex-wrap items-center gap-4">
+                <a className="hover:text-white" href="mailto:info@saturnmultipurpose.com">
+                  info@saturnmultipurpose.com
+                </a>
+                <a className="hover:text-white" href="tel:+9779800000000">
+                  +977 98XXXXXXXX
+                </a>
+              </div>
+            </div>
+          </Container>
+        </div>
 
-              <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
-                Simplify global trade with a Nepal-based partner you can rely on.
-              </h1>
-              <p className="mt-5 text-base leading-7 text-neutral-600">
-                Saturn Multipurpose helps businesses import and export with confidence—through reliable sourcing,
-                clear documentation, and coordinated logistics from start to finish.
-              </p>
+        {/* Header (fully transparent) */}
+        <header className="sticky top-0 z-40 border-none bg-transparent backdrop-blur-md">
+          <Container>
+            <div className="flex items-center justify-between py-4">
+              <a href="#home" className="flex items-center gap-3">
+                <Logo className="h-10 w-auto object-contain" />
+                <span className="sr-only">Saturn Multipurpose</span>
+              </a>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <nav className="hidden items-center gap-6 md:flex">
+                {nav.map((i) => (
+                  <a
+                    key={i.href}
+                    href={i.href}
+                    className="text-sm font-medium text-white/85 transition-colors hover:text-white"
+                  >
+                    {i.label}
+                  </a>
+                ))}
+              </nav>
+
+              <div className="flex items-center gap-3">
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center rounded-xl border border-neutral-900 bg-neutral-900 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-95"
+                  className="inline-flex items-center justify-center rounded-xl bg-[#F5B301] px-4 py-2 text-sm font-semibold text-[#081F33] shadow-sm hover:opacity-95"
                 >
-                  Request a Quote
+                  Get a Quote
                 </a>
-                <a
-                  href="#services"
-                  className="inline-flex items-center justify-center rounded-xl border border-neutral-200 bg-white px-5 py-3 text-sm font-semibold text-neutral-900 shadow-sm hover:bg-neutral-50"
-                >
-                  View Services
-                </a>
-              </div>
-
-              <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
-                <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
-                  <div className="text-lg font-semibold">Transparent</div>
-                  <div className="mt-1 text-xs text-neutral-600">Clear timelines & costs</div>
-                </div>
-                <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
-                  <div className="text-lg font-semibold">Compliant</div>
-                  <div className="mt-1 text-xs text-neutral-600">Documentation & HS guidance</div>
-                </div>
-                <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
-                  <div className="text-lg font-semibold">Coordinated</div>
-                  <div className="mt-1 text-xs text-neutral-600">Freight + tracking updates</div>
-                </div>
               </div>
             </div>
+          </Container>
+        </header>
 
-            <div className="relative">
-              <div className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-sm font-semibold">Trade Snapshot</div>
-                    <div className="mt-1 text-xs text-neutral-500">A quick look at how we work</div>
-                  </div>
-                  <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700">
-                    24–72h response
-                  </span>
+        {/* Hero (full-width background image) */}
+        <main id="home" className="relative overflow-hidden py-10 sm:py-14">
+          {/* Full hero background (spans entire hero, not constrained by Container) */}
+          {showHeroBg ? (
+            <img
+              src="/hero-img.jpg"
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+              onError={() => setShowHeroBg(false)}
+            />
+          ) : null}
+
+          {/* Optional: add a subtle dark overlay for text readability. Remove if not needed. */}
+          <div className="pointer-events-none absolute inset-0 bg-[#061B2B]/35" />
+
+          <Container>
+            <div className="relative grid gap-10 py-12 sm:py-14 lg:grid-cols-2 lg:items-center">
+              {/* Left */}
+              <div>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>Nepal-based Import & Export</Badge>
                 </div>
 
-                <div className="mt-6 space-y-4">
-                  {["Share requirement", "Get supplier/buyer options", "Confirm docs & shipping", "Delivery & after-support"].map(
-                    (t, idx) => (
-                      <div key={t} className="flex items-start gap-3">
-                        <div className="grid h-7 w-7 flex-none place-items-center rounded-full border border-neutral-200 bg-white text-xs font-semibold">
-                          {idx + 1}
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">{t}</div>
-                          <div className="text-xs leading-5 text-neutral-600">
-                            {idx === 0
-                              ? "Specs, quantity, budget, and timeline."
-                              : idx === 1
-                              ? "Shortlist, pricing, lead times, and samples."
-                              : idx === 2
-                              ? "HS codes, invoices, COO, BL/AWB coordination."
-                              : "Tracking updates and issue resolution support."}
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  )}
-                </div>
+                <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                  Global Trade,
+                  <br />
+                  Made Simple.
+                </h1>
 
-                <div className="mt-6 rounded-2xl bg-neutral-50 p-4">
-                  <div className="text-xs font-semibold text-neutral-700">Need something specific?</div>
-                  <p className="mt-1 text-xs leading-5 text-neutral-600">
-                    Tell us your product category and destination. We’ll respond with feasibility, timelines, and next steps.
-                  </p>
+                <p className="mt-5 max-w-xl text-base leading-7 text-white/85">
+                  Saturn Multipurpose helps businesses import and export with confidence—reliable sourcing, compliant documentation,
+                  and coordinated freight support from start to finish.
+                </p>
+
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <a
                     href="#contact"
-                    className="mt-3 inline-flex w-full items-center justify-center rounded-xl border border-neutral-900 bg-neutral-900 px-4 py-2 text-xs font-semibold text-white hover:opacity-95"
+                    className="inline-flex items-center justify-center rounded-xl bg-[#F5B301] px-5 py-3 text-sm font-semibold text-[#081F33] shadow-sm hover:opacity-95"
                   >
-                    Talk to Us
+                    Get a Quote
+                  </a>
+                  <a
+                    href="#services"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white hover:bg-white/15"
+                  >
+                    Explore Services
                   </a>
                 </div>
               </div>
 
-              <div className="pointer-events-none absolute -bottom-6 -left-6 hidden h-24 w-24 rounded-3xl border border-neutral-200 bg-white shadow-sm lg:block" />
-              <div className="pointer-events-none absolute -top-6 -right-6 hidden h-24 w-24 rounded-3xl border border-neutral-200 bg-white shadow-sm lg:block" />
-            </div>
-          </div>
-        </Container>
-      </main>
+              </div>
+          </Container>
+        </main>
+      </div>
 
       {/* About */}
       <section id="about" className="border-t border-neutral-200 bg-white py-14 sm:py-16">
@@ -317,24 +309,31 @@ export default function Page() {
                 </p>
               </div>
               <div className="mt-8 flex flex-wrap gap-2">
-                <Badge>Supplier verification</Badge>
-                <Badge>Sample coordination</Badge>
-                <Badge>HS code support</Badge>
-                <Badge>Freight planning</Badge>
+                {["Supplier verification", "Sample coordination", "HS code support", "Freight planning"].map((t) => (
+                  <span
+                    key={t}
+                    className="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs font-medium text-neutral-700"
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </div>
 
             <div className="rounded-3xl border border-neutral-200 bg-neutral-50 p-6">
               <div className="text-sm font-semibold">What clients typically ask us for</div>
               <ul className="mt-4 space-y-3">
-                {["Find a supplier with better pricing", "Export Nepali products with the right documents", "Reduce customs delays", "Coordinate freight and delivery updates"].map(
-                  (t) => (
-                    <li key={t} className="flex items-start gap-3 text-sm text-neutral-700">
-                      <IconDot />
-                      <span>{t}</span>
-                    </li>
-                  )
-                )}
+                {[
+                  "Find a supplier with better pricing",
+                  "Export Nepali products with the right documents",
+                  "Reduce customs delays",
+                  "Coordinate freight and delivery updates",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-3 text-sm text-neutral-700">
+                    <IconDot />
+                    <span>{t}</span>
+                  </li>
+                ))}
               </ul>
               <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-5">
                 <div className="text-xs font-semibold text-neutral-700">Quick promise</div>
@@ -412,14 +411,17 @@ export default function Page() {
               <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-5">
                 <div className="text-xs font-semibold text-neutral-700">Before you ship, we help you check:</div>
                 <ul className="mt-3 space-y-2 text-sm text-neutral-700">
-                  {["Restricted/regulated goods status", "Labeling & packaging requirements", "Duties & estimated lead times", "Shipping mode: sea/air/land"].map(
-                    (t) => (
-                      <li key={t} className="flex items-start gap-3">
-                        <IconDot />
-                        <span>{t}</span>
-                      </li>
-                    )
-                  )}
+                  {[
+                    "Restricted/regulated goods status",
+                    "Labeling & packaging requirements",
+                    "Duties & estimated lead times",
+                    "Shipping mode: sea/air/land",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-3">
+                      <IconDot />
+                      <span>{t}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -628,9 +630,16 @@ export default function Page() {
         <Container>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl border border-neutral-200 bg-neutral-100 text-sm font-bold">
-                SM
-              </div>
+              <img
+                src={LOGO_SRC}
+                alt="Saturn Multipurpose Logo"
+                className="h-9 w-auto object-contain"
+                loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.display = "none";
+                }}
+              />
               <div>
                 <div className="text-sm font-semibold">Saturn Multipurpose</div>
                 <div className="text-xs text-neutral-500">Import & Export • Nepal</div>
@@ -649,12 +658,8 @@ export default function Page() {
           <div className="mt-8 flex flex-col gap-2 border-t border-neutral-200 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
             <div>© {new Date().getFullYear()} Saturn Multipurpose. All rights reserved.</div>
             <div className="flex gap-3">
-              <a className="hover:text-neutral-900" href="#">
-                Privacy
-              </a>
-              <a className="hover:text-neutral-900" href="#">
-                Terms
-              </a>
+              <a className="hover:text-neutral-900" href="#">Privacy</a>
+              <a className="hover:text-neutral-900" href="#">Terms</a>
             </div>
           </div>
         </Container>
