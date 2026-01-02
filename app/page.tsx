@@ -1,14 +1,4 @@
-// Saturn Multipurpose — One-page Landing Page (Next.js App Router)
-//
-// ✅ Usage (Next.js 14+ / App Router):
-// 1) Create: app/page.tsx
-// 2) Paste this entire file content
-// 3) Ensure Tailwind is configured (or replace className with your CSS)
-//
-// Notes:
-// - This is a single-page landing with section anchors.
-// - Replace placeholder copy, phone, email, and address.
-// - Add your logo in /public/logo.svg and update the <img> tag.
+
 'use client';
 import React from "react";
 import Image from "next/image";
