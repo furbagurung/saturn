@@ -66,7 +66,7 @@ function SiteHeader() {
     "backdrop-blur-md",
     isLightHeader
       ? "bg-white/85 border-b border-neutral-200"
-      : "bg-[#061B2B]/70"
+      : "bg-[#061B2B]"
   );
 
   const topBarTextClass = cn(
@@ -75,17 +75,17 @@ function SiteHeader() {
   );
 
   const navHeaderClass = cn(
-    "backdrop-blur-md",
+    "backdrop-blur-md drop-shadow-md transition-colors duration-300 ",
     isLightHeader
       ? "border-b border-neutral-200 bg-white/90"
-      : "border-none bg-[#061B2B]/45"
+      : "border-none bg-[#ffffff]/100"
   );
   const navLinkClass = (activeLight: boolean) =>
     cn(
       "text-sm font-medium transition-colors",
       activeLight
         ? "text-neutral-700 hover:text-neutral-900"
-        : "text-white/85 hover:text-white"
+        : "text-black hover:text-neutral-500 "
     );
 
   const topLinkClass = cn(
@@ -137,7 +137,7 @@ function SiteHeader() {
       {/* Navbar */}
       <header className={navHeaderClass}>
         <Container>
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-4 md:py-5">
             <a href="#home" className="flex items-center gap-3">
               <Logo
                 className="h-10 w-auto object-contain"
@@ -165,8 +165,8 @@ function SiteHeader() {
                 className={cn(
                   "md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border shadow-sm transition",
                   isLightHeader
-                    ? "border-neutral-200 bg-white/80 text-neutral-900 hover:bg-white"
-                    : "border-white/15 bg-white/10 text-white hover:bg-white/15"
+                    ? "border-neutral-200 bg-[#1a385d]/80 text-neutral-900 hover:bg-white"
+                    : "border-white/15 bg-[#1a385d] text-white hover:bg-[#1a385d]/85"
                 )}
                 aria-label={mobileOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileOpen}
@@ -193,7 +193,7 @@ function SiteHeader() {
                     className={cn(
                       "absolute left-0 top-3.5 block h-0.5 w-5 rounded-full transition-transform",
                       isLightHeader ? "bg-neutral-900" : "bg-white",
-                      mobileOpen ? "translate-y-1.75 -rotate-45" : ""
+                      mobileOpen ? "-translate-y-1.75 -rotate-45" : ""
                     )}
                   />
                 </span>
@@ -213,16 +213,16 @@ function SiteHeader() {
           <div
             id="mobile-nav"
             className={cn(
-              "md:hidden overflow-hidden transition-[max-height] duration-300",
-              mobileOpen ? "max-h-96" : "max-h-0"
+              "md:hidden overflow-hidden transition-all duration-900 ",
+              mobileOpen ? "max-h-96 pb-4 pt-2 " : "max-h-0"
             )}
           >
             <div
               className={cn(
                 "mt-2 rounded-2xl border p-3 shadow-sm",
                 isLightHeader
-                  ? "border-neutral-200 bg-white/95"
-                  : "border-white/15 bg-[#061B2B]/85"
+                  ? "border-neutral-200 bg-[#1a385d]/95"
+                  : "border-white/15 bg-[#1a385d]"
               )}
             >
               <div className="flex flex-col gap-1">
@@ -234,7 +234,7 @@ function SiteHeader() {
                       "rounded-xl px-3 py-2 text-sm font-medium transition-colors",
                       isLightHeader
                         ? "text-neutral-800 hover:bg-neutral-50 hover:text-neutral-900"
-                        : "text-white/90 hover:bg-white/10 hover:text-white"
+                        : "text-white/90 hover:bg-[#e4b418] hover:text-white"
                     )}
                     onClick={() => setMobileOpen(false)}
                   >
@@ -242,14 +242,7 @@ function SiteHeader() {
                   </a>
                 ))}
 
-                {/* Mobile CTA at bottom */}
-                <a
-                  href="#contact"
-                  onClick={() => setMobileOpen(false)}
-                  className="mt-3 inline-flex items-center justify-center rounded-xl bg-[#F5B301] px-4 py-3 text-sm font-semibold text-[#081F33] shadow-sm hover:opacity-95"
-                >
-                  Get a Quote
-                </a>
+               
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ export const INDUSTRIES_IMG = {
   GARMENTS: "/garments.jpg",
   BABY_MOTHER: "/baby-mother.jpg",
   METAL_NON_METAL: "/metal-non-metal.jpg",
-}
+};
 export const BRAND = {
   navy: "#061B2B",
   navy2: "#081F33",
@@ -41,10 +41,10 @@ export const NAV: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "What We Trade", href: "#trade" },
-  { label: "Why Us", href: "#why" },
+  { label: "Industries", href: "#industries" },
   { label: "Process", href: "#process" },
-  { label: "Team", href: "#team" },
+  { label: "Why Us", href: "#why" },
+
   { label: "Contact", href: "#contact" },
 ];
 

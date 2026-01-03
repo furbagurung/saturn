@@ -19,14 +19,14 @@ export default function HeroSection() {
     <main
       ref={heroRef}
       id="home"
-      className="relative min-h-screen overflow-hidden bg-[#061B2B]"
+      className="relative  overflow-hidden bg-[#061B2B]"
     >
       {showHeroBg ? (
         <Image
           src={HERO_BG_SRC}
           alt=""
-          width={500}
-          height={100}
+          width={1500}
+          height={700}
           aria-hidden
           className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           onError={() => setShowHeroBg(false)}
