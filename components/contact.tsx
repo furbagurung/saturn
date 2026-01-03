@@ -61,11 +61,7 @@ function Contact() {
 
               <div className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
                 <div className="text-sm font-semibold">Request a quote</div>
-                <p className="mt-2 text-sm leading-6 text-neutral-600">
-                  This form is frontend-only. Connect it to your backend (API
-                  route / email service) when ready.
-                </p>
-
+            
                 <form
                   className="mt-6 space-y-4"
                   onSubmit={(e) => {
