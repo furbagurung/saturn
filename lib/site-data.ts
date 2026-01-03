@@ -1,3 +1,5 @@
+import { HandicraftIcon, GarmentIcon, MetalIcon, LogisticsIcon, GlobalSourcingIcon, ComplianceIcon } from "@/components/ui/icons";
+
 export type NavItem = { label: string; href: string };
 export type CardItem = { icon?: string; title: string; desc: string };
 
@@ -35,26 +37,32 @@ export const NAV: NavItem[] = [
 
 export const SERVICES = [
   {
+    icon: HandicraftIcon,
     title: "Nepali Handicrafts – Import & Export",
     desc: "Import and export support for authentic Nepali handicrafts, working with verified artisans and export-ready packaging.",
   },
   {
+    icon: GarmentIcon,
     title: "Garments Trade (Branded & Non-Branded)",
     desc: "End-to-end support for documentation, compliance, and shipment coordination from Nepal.",
   },
   {
+    icon: MetalIcon,
     title: "Metal & Non-Metal Goods Trade",
     desc: "Import and export of metal and non-metal products with proper specifications and quality handling.",
   },
   {
+    icon: GlobalSourcingIcon,
     title: "Global Sourcing & Procurement",
     desc: "Supplier identification, pricing coordination, sampling, and quality assurance for imports and exports.",
   },
   {
+    icon: ComplianceIcon,
     title: "Customs, Compliance & Documentation",
     desc: "Invoices, packing lists, HS codes, TT, LC coordination, and clearance support.",
   },
   {
+    icon: LogisticsIcon,
     title: "Logistics & Freight Coordination",
     desc: "Sea, air, and land freight planning with tracking and delivery coordination.",
   },
