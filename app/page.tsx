@@ -7,6 +7,7 @@
 // Notes:
 // - Uses plain <img> instead of next/image (avoids next/image runtime issues)
 // - Top bar + navbar are FIXED (sticky across the full page)
+// - Top bar is hidden on mobile
 // - Header auto-switches to LIGHT after hero for readability
 // - Hero is ONLY background image + text (no ship image)
 
@@ -146,10 +147,7 @@ function Card({ title, desc }: { title: string; desc: string }) {
 
 function IconDot() {
   return (
-    <span
-      className="mt-2 inline-flex h-2 w-2 flex-none rounded-full bg-neutral-900"
-      aria-hidden
-    />
+    <span className="mt-2 inline-flex h-2 w-2 flex-none rounded-full bg-neutral-900" aria-hidden />
   );
 }
 
@@ -166,6 +164,9 @@ function Logo({
     console.assert(HERO_BG_SRC.startsWith('/'), 'HERO_BG_SRC must be a public path like /hero-img.jpg');
     console.assert(nav.length > 0, 'nav should be a non-empty array');
     console.assert(new Set(nav.map((n) => n.href)).size === nav.length, 'nav hrefs should be unique');
+    console.assert(services.length >= 3, 'services should have at least 3 items');
+    console.assert(steps.length === 4, 'steps should have exactly 4 items');
+    console.assert(faqs.length >= 2, 'faqs should have at least 2 items');
   }
 
   return (
@@ -199,6 +200,7 @@ function Logo({
 
 export default function Page() {
   const [showHeroBg, setShowHeroBg] = React.useState(true);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isLightHeader, setIsLightHeader] = React.useState(false);
   const heroRef = React.useRef<HTMLElement | null>(null);
 
@@ -207,15 +209,22 @@ export default function Page() {
     if (!el) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        // If hero is not visible, use light header for readability on white sections
-        setIsLightHeader(!entry.isIntersecting);
-      },
+      ([entry]) => setIsLightHeader(!entry.isIntersecting),
       { threshold: 0.1 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
+  }, []);
+
+  // Close mobile menu when switching to desktop
+  React.useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setMobileOpen(false);
+    };
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   const topBarClass = cn(
@@ -245,8 +254,8 @@ export default function Page() {
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
       {/* Fixed Top Bar + Navbar (stays visible across the full page) */}
       <div className="fixed inset-x-0 top-0 z-50">
-        {/* Top Bar */}
-        <div className={topBarClass}>
+        {/* Top Bar (hidden on mobile) */}
+        <div className={cn('hidden md:block', topBarClass)}>
           <Container>
             <div className={topBarTextClass}>
               <div className="flex flex-wrap items-center gap-3">
@@ -288,13 +297,97 @@ export default function Page() {
                 ))}
               </nav>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                {/* Mobile menu button */}
+                <button
+                  type="button"
+                  className={cn(
+                    'md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border shadow-sm transition',
+                    isLightHeader
+                      ? 'border-neutral-200 bg-white/80 text-neutral-900 hover:bg-white'
+                      : 'border-white/15 bg-white/10 text-white hover:bg-white/15'
+                  )}
+                  aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                  aria-expanded={mobileOpen}
+                  aria-controls="mobile-nav"
+                  onClick={() => setMobileOpen((v) => !v)}
+                >
+                  {/* Hamburger / X */}
+                  <span className="relative block h-4 w-5">
+                    <span
+                      className={cn(
+                        'absolute left-0 top-0 block h-0.5 w-5 rounded-full transition-transform',
+                        isLightHeader ? 'bg-neutral-900' : 'bg-white',
+                        mobileOpen ? 'translate-y-[7px] rotate-45' : ''
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        'absolute left-0 top-[7px] block h-0.5 w-5 rounded-full transition-opacity',
+                        isLightHeader ? 'bg-neutral-900' : 'bg-white',
+                        mobileOpen ? 'opacity-0' : 'opacity-100'
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        'absolute left-0 top-[14px] block h-0.5 w-5 rounded-full transition-transform',
+                        isLightHeader ? 'bg-neutral-900' : 'bg-white',
+                        mobileOpen ? 'translate-y-[-7px] -rotate-45' : ''
+                      )}
+                    />
+                  </span>
+                </button>
+
+                {/* Desktop CTA only */}
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center rounded-xl bg-[#F5B301] px-4 py-2 text-sm font-semibold text-[#081F33] shadow-sm hover:opacity-95"
+                  className="hidden md:inline-flex items-center justify-center rounded-xl bg-[#F5B301] px-4 py-2 text-sm font-semibold text-[#081F33] shadow-sm hover:opacity-95"
                 >
                   Get a Quote
                 </a>
+              </div>
+            </div>
+
+            {/* Mobile menu panel (CTA moved to bottom inside menu) */}
+            <div
+              id="mobile-nav"
+              className={cn(
+                'md:hidden overflow-hidden transition-[max-height] duration-300',
+                mobileOpen ? 'max-h-96' : 'max-h-0'
+              )}
+            >
+              <div
+                className={cn(
+                  'mt-2 rounded-2xl border p-3 shadow-sm',
+                  isLightHeader ? 'border-neutral-200 bg-white/95' : 'border-white/15 bg-[#061B2B]/85'
+                )}
+              >
+                <div className="flex flex-col gap-1">
+                  {nav.map((i) => (
+                    <a
+                      key={i.href}
+                      href={i.href}
+                      className={cn(
+                        'rounded-xl px-3 py-2 text-sm font-medium transition-colors',
+                        isLightHeader
+                          ? 'text-neutral-800 hover:bg-neutral-50 hover:text-neutral-900'
+                          : 'text-white/90 hover:bg-white/10 hover:text-white'
+                      )}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {i.label}
+                    </a>
+                  ))}
+
+                  {/* Mobile CTA at bottom */}
+                  <a
+                    href="#contact"
+                    onClick={() => setMobileOpen(false)}
+                    className="mt-3 inline-flex items-center justify-center rounded-xl bg-[#F5B301] px-4 py-3 text-sm font-semibold text-[#081F33] shadow-sm hover:opacity-95"
+                  >
+                    Get a Quote
+                  </a>
+                </div>
               </div>
             </div>
           </Container>
@@ -321,40 +414,41 @@ export default function Page() {
           <Container>
             {/*
               Vertically center hero content on large screens.
-              Header is fixed, so we reserve space for it (top bar + navbar ≈ 120px).
+              Header is fixed; we reserve space for it.
+              On mobile the top bar is hidden, but reserving the larger height is safe.
             */}
             <div className="relative flex min-h-[calc(100vh-120px)] items-center pt-[120px]">
               <div className="w-full max-w-2xl py-10">
-              <div className="flex flex-wrap gap-2">
-                <Badge>Nepal-based Import & Export</Badge>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>Nepal-based Import & Export</Badge>
+                </div>
+
+                <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                  Global Trade,
+                  <br />
+                  Made Simple.
+                </h1>
+
+                <p className="mt-5 max-w-xl text-base leading-7 text-white/85">
+                  Saturn Multipurpose helps businesses import and export with confidence—reliable sourcing, compliant documentation,
+                  and coordinated freight support from start to finish.
+                </p>
+
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center justify-center rounded-xl bg-[#F5B301] px-5 py-3 text-sm font-semibold text-[#081F33] shadow-sm hover:opacity-95"
+                  >
+                    Get a Quote
+                  </a>
+                  <a
+                    href="#services"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white hover:bg-white/15"
+                  >
+                    Explore Services
+                  </a>
+                </div>
               </div>
-
-              <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                Global Trade,
-                <br />
-                Made Simple.
-              </h1>
-
-              <p className="mt-5 max-w-xl text-base leading-7 text-white/85">
-                Saturn Multipurpose helps businesses import and export with confidence—reliable sourcing, compliant documentation,
-                and coordinated freight support from start to finish.
-              </p>
-
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center rounded-xl bg-[#F5B301] px-5 py-3 text-sm font-semibold text-[#081F33] shadow-sm hover:opacity-95"
-                >
-                  Get a Quote
-                </a>
-                <a
-                  href="#services"
-                  className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white hover:bg-white/15"
-                >
-                  Explore Services
-                </a>
-              </div>
-                          </div>
             </div>
           </Container>
         </main>
