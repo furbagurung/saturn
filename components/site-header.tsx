@@ -213,8 +213,8 @@ function SiteHeader() {
           <div
             id="mobile-nav"
             className={cn(
-              "md:hidden overflow-hidden transition-all duration-900 ",
-              mobileOpen ? "max-h-96 pb-4 pt-2 " : "max-h-0"
+              "md:hidden overflow-hidden transition-all duration-300 ",
+              mobileOpen ? "max-h-96 pb-4 pt-2 " : "max-h-0 duration-50"
             )}
           >
             <div
