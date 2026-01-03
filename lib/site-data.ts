@@ -1,4 +1,11 @@
-import { HandicraftIcon, GarmentIcon, MetalIcon, LogisticsIcon, GlobalSourcingIcon, ComplianceIcon } from "@/components/ui/icons";
+import {
+  HandicraftIcon,
+  GarmentIcon,
+  MetalIcon,
+  LogisticsIcon,
+  GlobalSourcingIcon,
+  ComplianceIcon,
+} from "@/components/ui/icons";
 
 export type NavItem = { label: string; href: string };
 export type CardItem = { icon?: string; title: string; desc: string };
@@ -8,7 +15,13 @@ export const ASSETS = {
   HERO_BG: "/hero-img.jpg",
   ABOUT_IMG: "/about-img.jpg",
 };
-
+export const INDUSTRIES_IMG = {
+  AGRO: "/agro.jpg",
+  HANDICRAFTS: "/handicrafts.jpg",
+  GARMENTS: "/garments.jpg",
+  BABY_MOTHER: "/baby-mother.jpg",
+  METAL_NON_METAL: "/metal-non-metal.jpg",
+}
 export const BRAND = {
   navy: "#061B2B",
   navy2: "#081F33",
@@ -68,11 +81,31 @@ export const SERVICES = [
   },
 ];
 export const INDUSTRIES = [
-  "Agro & Food Products",
-  "Nepali Handicrafts",
-  "Boutiques & Garments",
-  "Baby & Mother Care Products",
-  "Metal & Non-Metal Goods",
+  {
+    title: "Agro & Food Products",
+    desc: "Contract Manufacturing • Local Trade • Global Market.",
+    img: INDUSTRIES_IMG.AGRO,
+  },
+  {
+    title: "Nepali Handicrafts",
+    desc: "Contract Manufacturing • Local Trade • Global Market",
+    img: INDUSTRIES_IMG.HANDICRAFTS,
+  },
+  {
+    title: "Boutiques & Garments",
+    desc: "Fashionable design cloths, Baby and mother cloths, Order based  cloths.",
+    img: INDUSTRIES_IMG.GARMENTS,
+  },
+  {
+    title: "Baby & Mother Care Products",
+    desc: "Contract Manufacturing • Local Trade • Global Market",
+    img: INDUSTRIES_IMG.BABY_MOTHER,
+  },
+  {
+    title: "Metal & Non-Metal Goods",
+    desc: "Contract Manufacturing • Local Trade • Global Market",
+    img: INDUSTRIES_IMG.METAL_NON_METAL,
+  },
 ];
 
 export const STEPS = [

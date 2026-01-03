@@ -11,7 +11,7 @@ const HERO_BG_SRC = "/hero-img.jpg";
 
 export default function HeroSection() {
   const [showHeroBg, setShowHeroBg] = React.useState(true);
-  
+
   const heroRef = React.useRef<HTMLElement | null>(null);
 
   return (
@@ -51,7 +51,10 @@ export default function HeroSection() {
             <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               Saturn
               <br />
-              Now It&apos;s your turn.
+              Now &nbsp;
+              <span className=" text-[#ffbb00]">
+                It&apos;s your turn.
+              </span>
             </h1>
 
             <p className="mt-5 max-w-xl text-base leading-7 text-white/85">

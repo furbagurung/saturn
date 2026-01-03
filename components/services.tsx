@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "./ui/container";
 import { SERVICES } from "@/lib/site-data";
-import { HandicraftIcon } from "./ui/icons";
+
 
 
 
