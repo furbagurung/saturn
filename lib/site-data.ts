@@ -57,7 +57,7 @@ export const SERVICES = [
   {
     icon: GarmentIcon,
     title: "Garments Trade (Branded & Non-Branded)",
-    desc: "End-to-end support for documentation, compliance, and shipment coordination from Nepal.",
+    desc: "End-to-end trade facilitation for readymade garments, private-label, and branded clothing.",
   },
   {
     icon: MetalIcon,
