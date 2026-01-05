@@ -71,7 +71,7 @@ export function WhatsAppFloat() {
         </g>
       </svg>
 
-      <span>WhatsApp Now</span>
+      <span>WhatsApp</span>
     </a>
   );
 }
