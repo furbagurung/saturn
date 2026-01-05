@@ -9,6 +9,7 @@ import Industries from "@/components/industries";
 import Process from "@/components/process";
 import Services from "@/components/services";
 import SiteHeader from "@/components/site-header";
+import { WhatsAppFloat } from "@/components/whatsapp-float";
 import Whyus from "@/components/whyus";
 
 
@@ -45,6 +46,8 @@ export default function Page() {
 
         {/* Contact */}
         <Contact />
+        <WhatsAppFloat />
+
         {/* Footer */}
         <Footer />
       </div>

@@ -35,6 +35,7 @@ export const CONTACT = {
   waE164NoPlus: "9779761908555",
   address: "Bhaktapur, Nepal",
   founder: "Rabin Shrestha",
+  
 };
 
 export const NAV: NavItem[] = [
