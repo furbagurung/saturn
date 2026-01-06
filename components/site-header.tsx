@@ -14,7 +14,7 @@ function Logo() {
         src={ASSETS.LOGO}
         alt="Saturn Multipurpose Logo"
         className="h-10 w-auto object-contain"
-        width={500}
+        width={150}
         height={50}
         loading="lazy"
         decoding="async"

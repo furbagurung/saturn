@@ -42,8 +42,8 @@ export default function HeroSection() {
                   Header is fixed; we reserve space for it.
                   On mobile the top bar is hidden, but reserving the larger height is safe.
                 */}
-        <div className="relative flex min-h-[calc(100vh-120px)] items-center pt-30px">
-          <div className="w-full max-w-2xl py-10">
+        <div className="relative flex min-h-[calc(100vh-120px)] items-center pt-30px min-w-0">
+          <div className="w-full max-w-2xl py-10 min-w-0">
             <div className="flex flex-wrap gap-2">
               <Badge>Nepal-based Import & Export</Badge>
             </div>
