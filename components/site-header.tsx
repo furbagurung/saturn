@@ -62,13 +62,13 @@ export default function SiteHeader() {
       </div>
 
       {/* Floating pill navbar */}
-      <div className="pt-3 md:pt-4">
-        <Container>
+      <div className="pt-3 md:pt-4 drop-shadow-lime-50 h-25">
+        <Container >
           <header
             className={cn(
               "mx-auto w-full max-w-full overflow-x-hidden",
               "rounded-2xl bg-white backdrop-blur-md",
-              "shadow-lg border border-white/40"
+              "shadow-lg border border-white/40 ", 
             )}
           >
             <div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 min-w-0">
