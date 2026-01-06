@@ -19,22 +19,24 @@ export default function HeroSection() {
     <main
       ref={heroRef}
       id="home"
-      className="relative  overflow-hidden bg-[#061B2B]"
+      className="relative  overflow-hidden bg-[#061B2B] object-fill bg-center"
     >
       {showHeroBg ? (
-        <Image
-          src={HERO_BG_SRC}
-          alt=""
-          width={1500}
-          height={700}
-          aria-hidden
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-          onError={() => setShowHeroBg(false)}
-        />
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <Image
+            src={HERO_BG_SRC}
+            alt=""
+            fill
+            aria-hidden
+            className="object-cover object-center w-full h-full"
+            onError={() => setShowHeroBg(false)}
+            priority
+          />
+        </div>
       ) : null}
 
       {/* overlay for readability */}
-      <div className="pointer-events-none absolute inset-0 bg-[#061B2B]/35" />
+      <div className="pointer-events-none absolute inset-0 bg-[#061B2B]/35 z-10" />
 
       <Container>
         {/*
@@ -42,7 +44,7 @@ export default function HeroSection() {
                   Header is fixed; we reserve space for it.
                   On mobile the top bar is hidden, but reserving the larger height is safe.
                 */}
-        <div className="relative flex min-h-[calc(100vh-120px)] items-center pt-30px min-w-0">
+        <div className="relative flex min-h-[calc(100vh-120px)] items-center pt-30px min-w-0 z-20">
           <div className="w-full max-w-2xl py-10 min-w-0">
             <div className="flex flex-wrap gap-2">
               <Badge>Nepal-based Import & Export</Badge>

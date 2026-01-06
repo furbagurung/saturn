@@ -14,7 +14,7 @@ function Logo() {
         src={ASSETS.LOGO}
         alt="Saturn Multipurpose Logo"
         className="h-10 w-auto object-contain"
-        width={150}
+        width={100}
         height={50}
         loading="lazy"
         decoding="async"
@@ -113,19 +113,19 @@ export default function SiteHeader() {
                     <span
                       className={cn(
                         "absolute left-0 top-0 block h-0.5 w-5 rounded-full bg-neutral-900 transition-transform",
-                        mobileOpen && "translate-y-[7px] rotate-45"
+                        mobileOpen && "translate-y-1.75 rotate-45"
                       )}
                     />
                     <span
                       className={cn(
-                        "absolute left-0 top-[7px] block h-0.5 w-5 rounded-full bg-neutral-900 transition-opacity",
+                        "absolute left-0 top-1.75 block h-0.5 w-5 rounded-full bg-neutral-900 transition-opacity",
                         mobileOpen ? "opacity-0" : "opacity-100"
                       )}
                     />
                     <span
                       className={cn(
-                        "absolute left-0 top-[14px] block h-0.5 w-5 rounded-full bg-neutral-900 transition-transform",
-                        mobileOpen && "translate-y-[-7px] -rotate-45"
+                        "absolute left-0 top-3.5 block h-0.5 w-5 rounded-full bg-neutral-900 transition-transform",
+                        mobileOpen && "-translate-y-1.75 -rotate-45"
                       )}
                     />
                   </span>

@@ -42,10 +42,9 @@ export default function AboutSection() {
             <Image
               src={ASSETS.ABOUT_IMG}
               alt=""
-              width={500}
-              height={300}
+             fill
               aria-hidden
-              className="h-105 w-full object-cover sm:h-130"
+              className="h-105w-full object-cover sm:h-10"
               onError={(e) => {
                 // if image missing, just hide image and keep layout clean
                 (e.currentTarget as HTMLImageElement).style.display = "none";
