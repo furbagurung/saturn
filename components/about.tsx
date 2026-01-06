@@ -35,16 +35,16 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Bottom: big story image card left, mission/vision stacked cards right */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-stretch">
-          {/* Left: Our Story image card */}
-          <div className="relative overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-100 shadow-sm">
+        {/* Bottom: big Information image card left, mission/vision stacked cards right */}
+        <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-stretch items-center ">
+          {/* Left: Our Information image card */}
+          <div className="relative overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-100 shadow-sm h-auto min-h-100 lg:min-h-0 items-center">
             <Image
               src={ASSETS.ABOUT_IMG}
               alt=""
              fill
               aria-hidden
-              className="h-105w-full object-cover sm:h-10"
+              className="h-105 w-full object-cover sm:h-130"
               onError={(e) => {
                 // if image missing, just hide image and keep layout clean
                 (e.currentTarget as HTMLImageElement).style.display = "none";
@@ -52,14 +52,14 @@ export default function AboutSection() {
             />
 
             {/* soft overlay for readability */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/15 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/50 to-transparent" />
 
             {/* Story text overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7">
       
 
            {/* Small company info block (optional, clean like reference) */}
-              <div className="mt-6 rounded-2xl border border-white/10 max-w-md  bg-white/5 p-5 ">
+              <div className="mt-6 rounded-2xl border border-white/10 max-w-md  bg-white/5 p-5 backdrop-blur">
                 <div className="text-xs font-semibold text-white/75">
                   Company Information
                 </div>
