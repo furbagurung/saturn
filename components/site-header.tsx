@@ -62,7 +62,7 @@ export default function SiteHeader() {
       </div>
 
       {/* Floating pill navbar */}
-      <div className="pt-3 md:pt-4 drop-shadow-lime-50 h-25">
+      <div className="pt-3 md:pt-4 drop-shadow-neutral-400 lg:h-25 h-110">
         <Container >
           <header
             className={cn(
