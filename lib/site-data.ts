@@ -87,11 +87,7 @@ export const INDUSTRIES = [
     desc: "Contract Manufacturing • Local Trade • Global Market.",
     img: INDUSTRIES_IMG.AGRO,
   },
-  {
-    title: "Nepali Handicrafts",
-    desc: "Contract Manufacturing • Local Trade • Global Market",
-    img: INDUSTRIES_IMG.HANDICRAFTS,
-  },
+ 
   {
     title: "Boutiques & Garments",
     desc: "Fashionable design cloths, Baby and mother cloths, Order based  cloths.",
@@ -106,6 +102,12 @@ export const INDUSTRIES = [
     title: "Metal & Non-Metal Goods",
     desc: "Contract Manufacturing • Local Trade • Global Market",
     img: INDUSTRIES_IMG.METAL_NON_METAL,
+  },
+
+   {
+    title: "Nepali Handicrafts",
+    desc: "Contract Manufacturing • Local Trade • Global Market",
+    img: INDUSTRIES_IMG.HANDICRAFTS,
   },
 ];
 

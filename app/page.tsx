@@ -33,11 +33,14 @@ export default function Page() {
         {/* About */}
 
         <About />
+
+          {/* Industries */}
+        <Industries />
+        
         {/* Services */}
         <Services />
 
-        {/* Industries */}
-        <Industries />
+      
 
         {/* Process */}
         <Process />
